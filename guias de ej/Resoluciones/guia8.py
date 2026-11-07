@@ -72,9 +72,60 @@ def buscar_nota_maxima(p: Pila[Alumno_Nota]) -> Alumno_Nota:
 
     return alumno_nota_max
 
+#### COLAS
+
+def mostrar_cola(cola: Cola) -> None:
+
+    lista_aux: list = []
+
+    # guardo, en orden, los elementos de cola en lista_aux
+    while not cola.empty():
+        elem = cola.get()
+        print(elem)
+        lista_aux.append(elem)
+
+    # restauro, en orden, la cola
+    for elem in lista_aux:
+        cola.put(elem)
 
 
 
+def copiar_cola(cola: Cola) -> Cola:
+    
+    lista_aux: list = []
+    cola_copia: Cola = Cola()
+
+    # guardo en orden, los elementos de cola en lista_aux
+    while not cola.empty():
+        lista_aux.append(cola.get())
+
+    # restauro, en orden, los elementos en cola y cola_copia
+    for elem in lista_aux:
+        cola.put(elem)
+        cola_copia.put(elem)
+
+    return cola_copia
+
+
+
+# ej 12
+
+def intercalar(Cola1: Cola, Cola2: Cola) -> Cola:
+
+    # se copian colas, para trabajar con las copias
+    Cola1_copia: Cola = copiar_cola(Cola1)
+    Cola2_copia: Cola = copiar_cola(Cola2)
+    Cola_res: Cola = Cola()
+
+    while not Cola1_copia.empty():
+        Cola_res.put(Cola1_copia.get())
+        Cola_res.put(Cola2_copia.get())
+        
+    return Cola_res
+
+
+
+#### DICCIONARIOS
 
 # ej 18: sistema de gestión de inventario
 
@@ -117,10 +168,6 @@ def actualizar_precio(inventario: Inventario,
     atributos_prod['precio'] = precio_nuevo
 
 
-
-
-
-
 #18.4
 
 def calcular_valor_producto(atributos_prod: Atributos) -> float:  
@@ -135,4 +182,5 @@ def calcular_valor_inventario(inventario: Inventario) -> float:
         valor_inventario += calcular_valor_producto(atributos_prod)
 
     return valor_inventario
+
 
