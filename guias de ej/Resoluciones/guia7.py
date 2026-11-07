@@ -189,6 +189,7 @@ def resultado_materia(notas: list[int]) -> int:
 # MATRICES
 
 Fila = list[int]
+Columna = list[int]
 Matriz = list[Fila]
 
 # ej 5
@@ -225,6 +226,17 @@ def filas_ordenadas(m: Matriz, res: list[bool]) -> None:
         fila_ordenada: bool = ordenados(fila)   # implementada en 1.6
         res.append(fila_ordenada)
 
+# 6.3
+
+def columna(m: Matriz, c: int) -> Columna:
+    
+    columna_c: Columna = []
+    
+    for fila in m:
+        elem_c: int = fila[c]
+        columna_c.append(elem_c)
+    
+    return columna_c
 
 
 
