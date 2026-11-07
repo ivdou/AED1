@@ -1,3 +1,8 @@
+
+
+# RECORRIDO Y BUSQUEDA EN SECUENCIAS
+
+
 # ej 1
 
 
@@ -139,6 +144,9 @@ def vocales_distintas(palabra: str) -> bool:
 # 1.13
 
 
+# FLITRADO, MODIFICADO Y PROCESADO DE SECUENCIAS
+
+
 # ej 2 
 
 
@@ -176,3 +184,47 @@ def resultado_materia(notas: list[int]) -> int:
     else: 
         res = 3
     return res
+
+
+# MATRICES
+
+Fila = list[int]
+Matriz = list[Fila]
+
+# ej 5
+
+
+# ej 6 
+
+# 6.1
+def es_matriz(m: Matriz) -> bool:
+
+    res: bool = True
+    cant_filas: int = len(m)
+    
+    if cant_filas == 0: 
+        res = False 
+
+    elif len(m[0]) == 0: 
+        res = False
+
+    else:
+        for fila in m: 
+            dim_primer_fila = len(m[0])
+            if len(fila) != dim_primer_fila:
+                res = False
+
+    return res
+
+# 6.2
+def filas_ordenadas(m: Matriz, res: list[bool]) -> None: 
+
+    res.clear()
+
+    for fila in m:
+        fila_ordenada: bool = ordenados(fila)   # implementada en 1.6
+        res.append(fila_ordenada)
+
+
+
+
