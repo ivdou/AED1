@@ -5,6 +5,9 @@ d: dict = {
     'Capital': 'Buenos Aires'
 }
 
-print(d.items())
-print(d.keys())
-print(d.values())
+a = d.items()
+b = d.keys()
+c = d.values()
+
+
+inventario: dict[str, dict[str, int | float]]

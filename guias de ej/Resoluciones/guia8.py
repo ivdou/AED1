@@ -33,16 +33,6 @@ def copiar_pila(p: Pila) -> Pila:
 
     return p_copia
 
-# print('Estado inicial de p_test')
-# mostrar_pila(p_test)
-
-# p_test_copia: Pila = copiar_pila(p_test)
-
-# print('Resultado de la copia en de p_test_copia')
-# mostrar_pila(p_test_copia)
-
-# print('Estado de p_test, luego de ser copiada')
-# mostrar_pila(p_test)
 
 # ej 3
 
@@ -82,21 +72,67 @@ def buscar_nota_maxima(p: Pila[Alumno_Nota]) -> Alumno_Nota:
 
     return alumno_nota_max
 
-# armo p_test como 2,7,4,1|
-
-p_test: Pila[Alumno_Nota] = Pila()
-p_test.put(('Juan', 8))
-p_test.put(('Pedro', 10))
-p_test.put(('Maria', 7))
-p_test.put(('Theo', 5))
 
 
-print('Estado inicial p_test:')
-mostrar_pila(p_test)
 
-print('Ejecucion de buscar_nota_maxima(), resulta en:')
-res: Alumno_Nota = buscar_nota_maxima(p_test)
-print(res)
 
-print('Estado de p_test, luego de ejecución')
-mostrar_pila(p_test)
+# ej 18: sistema de gestión de inventario
+
+Precio = float
+Cantidad = int
+Atributos = dict[str, Precio | Cantidad]
+
+Producto = str
+Inventario = dict[Producto, Atributos]
+
+# 18.1
+def agregar_producto(inventario: Inventario, 
+                     nombre_prod: Producto, 
+                     precio: Precio, 
+                     cant: Cantidad)-> None:
+    
+    atributos_prod: Atributos = {
+        'precio': precio,
+        'cantidad': cant
+    }
+
+    inventario[nombre_prod] = atributos_prod
+
+
+# 18.2
+def actualizar_stock(inventario: Inventario,
+                     nombre_prod: Producto,
+                     cant_nueva: Cantidad)-> None:
+
+    atributos_prod: Atributos = inventario[nombre_prod]
+    atributos_prod['cantidad'] = cant_nueva
+
+
+# 18.3
+def actualizar_precio(inventario: Inventario,
+                      nombre_prod: Producto,
+                      precio_nuevo: Precio)-> None:
+
+    atributos_prod: Atributos = inventario[nombre_prod]
+    atributos_prod['precio'] = precio_nuevo
+
+
+
+
+
+
+#18.4
+
+def calcular_valor_producto(atributos_prod: Atributos) -> float:  
+    return atributos_prod['cantidad'] * atributos_prod['precio'] 
+
+def calcular_valor_inventario(inventario: Inventario) -> float:
+
+    valor_inventario: float = 0.0
+
+    # se usa .values() para iterar directamente sobre los dict internos
+    for atributos_prod in inventario.values(): 
+        valor_inventario += calcular_valor_producto(atributos_prod)
+
+    return valor_inventario
+
