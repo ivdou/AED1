@@ -238,5 +238,26 @@ def columna(m: Matriz, c: int) -> Columna:
     
     return columna_c
 
+# 6.4
+
+def columnas_ordenadas(m: Matriz) -> bool:
+
+    cant_columnas: int = len(m[0])
+    columnas: list[Columna] = []
+
+    # armo lista de columnas
+    for i in range(cant_columnas): 
+        columna_i: Columna = columna(m, i)
+        columnas.append(columna_i)
+
+    res: bool = True
+    
+    # itero sobre la lista de columnas
+    for col in columnas: 
+        if not ordenados(col): 
+            res = False
+
+    return res
+
 
 
