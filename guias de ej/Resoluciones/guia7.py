@@ -260,4 +260,28 @@ def columnas_ordenadas(m: Matriz) -> bool:
     return res
 
 
+# 6.5
+
+def transponer(m: Matriz) -> Matriz: 
+    columnas_m : list[Columna] = []
+    cant_columnas: int = len(m[0])
+
+    m_transpuesta: Matriz = Matriz()
+
+
+    for i in range(cant_columnas):
+        m_transpuesta.append(columna(m,i))
+
+    return m_transpuesta
+
+
+# 1  0 1 5
+# 2 -1 3 0
+# 6  4 0 1
+
+# 1  2 6
+# 0 -1 4
+# 1  3 0
+# 5  0 1
+
 
