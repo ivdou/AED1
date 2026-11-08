@@ -50,9 +50,9 @@ def maximo(p: Pila[int]) -> int:
 
 # ej 4
 
-type Nota = int
-type Nombre = str
-type Alumno_Nota = tuple[Nombre, Nota]
+Nota = int
+Nombre = str
+Alumno_Nota = tuple[Nombre, Nota]
 
 def nota(t:Alumno_Nota) -> Nota:
     return t[1]
@@ -72,6 +72,61 @@ def buscar_nota_maxima(p: Pila[Alumno_Nota]) -> Alumno_Nota:
 
     return alumno_nota_max
 
+# ej 7
+
+def intercalar_pilas(p1: Pila, p2: Pila) -> Pila:
+
+    p1_copia: Pila = copiar_pila(p1)
+    p2_copia: Pila = copiar_pila(p2)
+
+    # defino una pila_aux, donde almaceno intercaladamente los elementos
+    pila_aux: Pila = Pila()
+
+    while not p1_copia.empty():
+        pila_aux.put(p2_copia.get())
+        pila_aux.put(p1_copia.get())
+
+    # saco los elementos de la pila_aux y los pongo en p_res
+    p_res: Pila = Pila()
+
+    while not pila_aux.empty():
+        p_res.put(pila_aux.get())
+
+    # el pasaje por una cola auxiliar, garantiza el orden requerido en p_res
+    return p_res
+
+pila1: Pila = Pila()
+pila2: Pila = Pila ()
+pila1.put(8)
+pila2.put(7)
+pila1.put(3)
+pila2.put(4)
+pila1.put(1)
+pila2.put(0)
+
+print('pila1:')
+mostrar_pila(pila1)
+print('')
+print('pila2:')
+mostrar_pila(pila2)
+
+print('')
+print('ejecucion de intercalado...')
+pila_intercalada: Pila = intercalar_pilas(pila1, pila2)
+
+print('resultado de intercalado; pila_intercalada:')
+mostrar_pila(pila_intercalada)
+print('')
+print('estado final de pila1 y pila2:')
+print('pila1:')
+mostrar_pila(pila1)
+print('')
+print('pila2:')
+mostrar_pila(pila2)
+
+
+# 012378
+
 #### COLAS
 
 def mostrar_cola(cola: Cola) -> None:
@@ -87,8 +142,6 @@ def mostrar_cola(cola: Cola) -> None:
     # restauro, en orden, la cola
     for elem in lista_aux:
         cola.put(elem)
-
-
 
 def copiar_cola(cola: Cola) -> Cola:
     
@@ -106,8 +159,6 @@ def copiar_cola(cola: Cola) -> Cola:
 
     return cola_copia
 
-
-
 # ej 12
 
 def intercalar(Cola1: Cola, Cola2: Cola) -> Cola:
@@ -124,8 +175,11 @@ def intercalar(Cola1: Cola, Cola2: Cola) -> Cola:
     return Cola_res
 
 
+# ej 15
 
 #### DICCIONARIOS
+
+# ej 16
 
 # ej 18: sistema de gestión de inventario
 
