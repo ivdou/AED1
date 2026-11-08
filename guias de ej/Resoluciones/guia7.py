@@ -188,7 +188,7 @@ def resultado_materia(notas: list[int]) -> int:
 
 # MATRICES
 
-type Fila[T] = list[T]
+type Fila = list
 type Columna[T] = list[T]
 type Matriz[T] = list[Fila[T]]
 
@@ -228,12 +228,12 @@ def filas_ordenadas(m: Matriz[int], res: list[bool]) -> None:
 
 # 6.3
 
-def columna(m: Matriz[T], c: int) -> Columna:
+def columna(m: Matriz[int], c: int) -> Columna:
     
-    columna_c: Columna[T] = []
+    columna_c: Columna = []
     
     for fila in m:
-        elem_c: T = fila[c]
+        elem_c: int = fila[c]
         columna_c.append(elem_c)
     
     return columna_c
@@ -262,10 +262,10 @@ def columnas_ordenadas(m: Matriz) -> bool:
 
 # 6.5
 
-def transponer(m: Matriz[T]) -> Matriz[T]: 
+def transponer(m: Matriz) -> Matriz: 
     cant_columnas: int = len(m[0])
 
-    m_transpuesta: Matriz[T] = []
+    m_transpuesta: Matriz = []
 
 
     for i in range(cant_columnas):
@@ -274,20 +274,86 @@ def transponer(m: Matriz[T]) -> Matriz[T]:
     return m_transpuesta
 
 
-# 6.6
+# 6.6 (TATETI)
 
 Tateti = list[list[str]]
+ColumnaTateti = list[str]
+DiagonalTateti = list[str]
 
-def quien_gana_tateti()
+def todos_iguales(l: list) -> bool:
+    res: bool = True
 
+    for elem in l: 
+        if elem != l[0]:
+            res = False
 
-# 1  0 1 5
-# 2 -1 3 0
-# 6  4 0 1
+    return res
 
-# 1  2 6
-# 0 -1 4
-# 1  3 0
-# 5  0 1
+def columna_tateti(t: Tateti, c: int) -> ColumnaTateti:
+    col_c: ColumnaTateti = []
+    for fila in t:
+        col_c.append(fila[c])
 
+    return col_c
 
+def columnas_tateti(t: Tateti) -> list[ColumnaTateti]:
+    columnas: list[ColumnaTateti] = []
+
+    for i in range(3):
+        columnas.append(columna_tateti(t, i))
+
+    return columnas
+
+def diag_principal(t: Tateti) -> DiagonalTateti:
+    d: DiagonalTateti = [t[0][0],
+                         t[1][1],
+                         t[2][2]]
+
+    return d 
+
+def diag_secundaria(t: Tateti) -> DiagonalTateti:
+    d: DiagonalTateti = [t[2][0],
+                         t[1][1],
+                         t[0][2]]
+
+    return d 
+
+def diagonales_tateti(t: Tateti) -> list[DiagonalTateti]:
+
+    diagonales: list[DiagonalTateti] = []
+    diagonales.append(diag_principal(t))
+    diagonales.append(diag_secundaria(t))
+
+    return diagonales
+
+def gana_tateti(t: Tateti, letra: str) -> bool:
+    # dado un tateti t y una letra ('X' | 'O') decide si ganó el tateti
+    res: bool = False
+    columnas: list[ColumnaTateti] = columnas_tateti(t)
+    diagonales: list[DiagonalTateti] = diagonales_tateti(t)
+
+    for fila in t:
+        if todos_iguales(fila) and fila[0] == letra:
+            res = True
+
+    for columna in columnas:
+        if todos_iguales(columna) and columna[0] == letra:
+            res = True
+
+    for diagonal in diagonales:
+        if todos_iguales(diagonal) and diagonal[0] == letra:
+            res = True
+    
+    return res
+
+def quien_gana_tateti(t: Tateti) -> int: 
+    # 0 si gana 'O' , 1 si gana 'X', 2 si no gana nadie
+
+    res: int = 2
+
+    if gana_tateti(t, 'X'):
+        res = 1
+    elif gana_tateti(t, 'O'):
+        res = 0
+
+    return res
