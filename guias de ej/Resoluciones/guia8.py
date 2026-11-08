@@ -95,37 +95,6 @@ def intercalar_pilas(p1: Pila, p2: Pila) -> Pila:
     # el pasaje por una cola auxiliar, garantiza el orden requerido en p_res
     return p_res
 
-pila1: Pila = Pila()
-pila2: Pila = Pila ()
-pila1.put(8)
-pila2.put(7)
-pila1.put(3)
-pila2.put(4)
-pila1.put(1)
-pila2.put(0)
-
-print('pila1:')
-mostrar_pila(pila1)
-print('')
-print('pila2:')
-mostrar_pila(pila2)
-
-print('')
-print('ejecucion de intercalado...')
-pila_intercalada: Pila = intercalar_pilas(pila1, pila2)
-
-print('resultado de intercalado; pila_intercalada:')
-mostrar_pila(pila_intercalada)
-print('')
-print('estado final de pila1 y pila2:')
-print('pila1:')
-mostrar_pila(pila1)
-print('')
-print('pila2:')
-mostrar_pila(pila2)
-
-
-# 012378
 
 #### COLAS
 
@@ -175,7 +144,59 @@ def intercalar(Cola1: Cola, Cola2: Cola) -> Cola:
     return Cola_res
 
 
-# ej 15
+# ej 15 atencion a clientes
+
+NombreCliente = str
+DNI = int
+EsPreferencial = bool
+TienePrioridad = bool
+Cliente = tuple[NombreCliente, DNI, EsPreferencial, TienePrioridad]
+
+def es_prioritario(cliente: Cliente) -> bool:
+    return cliente[2]
+
+def es_preferencial(cliente: Cliente) -> bool:
+    return cliente[3]
+
+def atencion_a_clientes(c : Cola[Cliente]) -> Cola[Cliente]:
+    c_copia: Cola[Cliente] = copiar_cola(c)
+    c_prioritarios: Cola[Cliente] = Cola()
+    c_preferenciales: Cola[Cliente] = Cola()
+    c_restantes: Cola[Cliente] = Cola()
+
+    while not c_copia.empty():
+        cliente: Cliente = c_copia.get()
+
+        # Se evalua que tipo de cliente es, y se pone en su cola:
+        if es_prioritario(cliente):
+            c_prioritarios.put(cliente)
+
+        elif es_preferencial(cliente):
+            c_preferenciales.put(cliente)
+
+        else:
+            c_restantes.put(cliente)
+
+    c_ordenada: Cola[Cliente] = Cola()
+
+    # se llena la cola ordenada, llenando en el orden correspondiente:
+
+    # primero los prioritarios 
+    while not c_prioritarios.empty():
+        cliente_prioritario: Cliente = c_prioritarios.get()
+        c_ordenada.put(cliente_prioritario)
+
+    # luego los preferenciales
+    while not c_preferenciales.empty():
+        cliente_preferencial: Cliente = c_preferenciales.get()
+        c_ordenada.put(cliente_preferencial)      
+
+    # finalmente los restantes
+    while not c_restantes.empty():
+        cliente: Cliente = c_restantes.get()
+        c_ordenada.put(cliente)  
+
+    return c_ordenada
 
 #### DICCIONARIOS
 
