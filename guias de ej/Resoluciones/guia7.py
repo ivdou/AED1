@@ -188,9 +188,9 @@ def resultado_materia(notas: list[int]) -> int:
 
 # MATRICES
 
-Fila = list[int]
-Columna = list[int]
-Matriz = list[Fila]
+type Fila[T] = list[T]
+type Columna[T] = list[T]
+type Matriz[T] = list[Fila[T]]
 
 # ej 5
 
@@ -198,7 +198,7 @@ Matriz = list[Fila]
 # ej 6 
 
 # 6.1
-def es_matriz(m: Matriz) -> bool:
+def es_matriz(m: Matriz[int]) -> bool:
 
     res: bool = True
     cant_filas: int = len(m)
@@ -218,7 +218,7 @@ def es_matriz(m: Matriz) -> bool:
     return res
 
 # 6.2
-def filas_ordenadas(m: Matriz, res: list[bool]) -> None: 
+def filas_ordenadas(m: Matriz[int], res: list[bool]) -> None: 
 
     res.clear()
 
@@ -228,12 +228,12 @@ def filas_ordenadas(m: Matriz, res: list[bool]) -> None:
 
 # 6.3
 
-def columna(m: Matriz, c: int) -> Columna:
+def columna(m: Matriz[T], c: int) -> Columna:
     
-    columna_c: Columna = []
+    columna_c: Columna[T] = []
     
     for fila in m:
-        elem_c: int = fila[c]
+        elem_c: T = fila[c]
         columna_c.append(elem_c)
     
     return columna_c
@@ -243,7 +243,7 @@ def columna(m: Matriz, c: int) -> Columna:
 def columnas_ordenadas(m: Matriz) -> bool:
 
     cant_columnas: int = len(m[0])
-    columnas: list[Columna] = []
+    columnas: list[Columna[int]] = []
 
     # armo lista de columnas
     for i in range(cant_columnas): 
@@ -262,17 +262,23 @@ def columnas_ordenadas(m: Matriz) -> bool:
 
 # 6.5
 
-def transponer(m: Matriz) -> Matriz: 
-    columnas_m : list[Columna] = []
+def transponer(m: Matriz[T]) -> Matriz[T]: 
     cant_columnas: int = len(m[0])
 
-    m_transpuesta: Matriz = Matriz()
+    m_transpuesta: Matriz[T] = []
 
 
     for i in range(cant_columnas):
         m_transpuesta.append(columna(m,i))
 
     return m_transpuesta
+
+
+# 6.6
+
+Tateti = list[list[str]]
+
+def quien_gana_tateti()
 
 
 # 1  0 1 5
