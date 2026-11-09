@@ -201,6 +201,49 @@ def atencion_a_clientes(c : Cola[Cliente]) -> Cola[Cliente]:
 #### DICCIONARIOS
 
 # ej 16
+Calificacion = float
+type Nota = tuple[Nombre, Calificacion]
+
+def alumno(nota: Nota) -> Nombre: 
+    return nota[0]
+
+def calificacion(nota: Nota) -> Calificacion:
+    return nota[1]
+
+def notas_por_alumno(notas: list[Nota]) -> dict[Nombre, list[Calificacion]]:
+    # agrupa las notas por estudiante, en una lista
+    dict_notas: dict[Nombre, list[Calificacion]] = {}
+
+    for nota in notas:
+        alumno_nota: Nombre = alumno(nota)
+        calificacion_nota: Calificacion = calificacion(nota)
+
+        if not (alumno_nota in dict_notas):
+            dict_notas[alumno_nota] = [calificacion_nota]
+        else:
+            dict_notas[alumno_nota].append(calificacion_nota)
+
+    return dict_notas
+
+def promedio(notas: list[Nota]) -> Nota:
+    N: int = len(notas)
+    suma: float = 0
+    for nota in notas:
+        suma += nota
+    return suma/N
+
+def calcular_promedio_por_estudiante(notas: list[Nota]) -> dict[Nombre, Calificacion]:
+    # transformo las notas, de una lista a un diccionario, agrupando por alumno
+    dict_notas: dict[Nombre, list[Calificacion]] = notas_por_alumno(notas)
+
+    dict_promedios: dict = {}
+
+    for alumno in dict_notas:
+        notas_alumno: list[Nota] = dict_notas[alumno]
+        promedio_alumno: float = promedio(notas_alumno)
+        dict_promedios[alumno] = promedio_alumno
+
+    return dict_promedios
 
 # ej 18: sistema de gestión de inventario
 
