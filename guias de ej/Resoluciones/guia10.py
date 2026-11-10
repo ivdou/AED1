@@ -2,22 +2,6 @@ from guia7 import maximo, minimo
 
 # ej 1
 
-"""En la veterinaria, al finalizar cada dia, registra en papeles:
- los nombres 
- la cantidad actual de los productos, cuyo stock ha cambiado.
-  
-
-. La funcion debe procesar esta lista y devolver: 
-un dict[nombre_producto, tupla[stock_minimo , stock_maximo]]
-
-problema stock productos (in stock cambios : seq⟨str ×Z⟩) : seq⟨Z⟩ {
-requiere: {Todos los elementos de stock cambios est ́an formados por un str no vac ́ıo y un entero ≥ 0.}
-asegura: {res tiene como claves solo los primeros elementos de las tuplas de stock cambios (o sea, un producto).}
-asegura: {res tiene como claves todos los primeros elementos de las tuplas de stock cambios.}
-asegura: {El valor en res de un producto es una tupla de cantidades. Su primer elemento es la menor cantidad de ese
-producto en stock cambios y como segundo valor el mayor.}
-}"""
-
 Stock = int
 Producto = str
 Producto_Stock = tuple[Producto, Stock]
@@ -51,30 +35,3 @@ def stock_productos(stock_cambios: list[Producto_Stock]) -> dict[Producto, tuple
 
     return dict_stock
 
-
-lista_input: list[Producto_Stock] = [
-    ('Antibiotico',6),
-    ('Antiparasitario',12),
-    ('Suplemento',8),
-    ('Snack',12),
-    ('Pretal',6),
-    ('Juguete',6),
-    ('Antibiotico',3),
-    ('Antiparasitario',9),
-    ('Snack',10),
-    ('Antibiotico',1),
-    ('Antiparasitario',7),
-    ('Snack',8),
-    ('Antibiotico',12),
-    ('Antiparasitario',15),
-    ('Snack',5),   
-    ('Pretal',5),
-    ('Juguete',5),
-    ('Antibiotico',10),
-    ('Antiparasitario',13),
-    ('Snack',4), 
-    ('Snack',20),
-    ('Juguete',10)
-]
-
-print(diccionario_lista_stock(lista_input))

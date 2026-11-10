@@ -1,5 +1,6 @@
 from queue import LifoQueue as Pila
 from queue import Queue as Cola
+from typing import TextIO 
 
 def mostrar_pila(p: Pila) -> None:
 
@@ -302,3 +303,41 @@ def calcular_valor_inventario(inventario: Inventario) -> float:
     return valor_inventario
 
 
+#### ARCHIVOS
+
+
+def contar_lineas(nombre_archivo: str) -> int:
+    archivo: TextIO = open(nombre_archivo)
+    lineas: list[str] = archivo.readlines()
+    cant_lineas: int = len(lineas)
+    archivo.close()
+
+    return cant_lineas
+
+
+def existe_palabra(nombre_archivo: str, palabra: str) -> bool:
+    res: bool = False
+    archivo: TextIO = open(nombre_archivo)
+    lineas: list[str] = archivo.readlines()
+
+    for linea in lineas: 
+        if palabra in linea: 
+            res = True
+
+    archivo.close()
+
+    return res
+
+
+def cantidad_de_apariciones(nombre_archivo: str, palabra: str) -> int:
+    cant_apariciones: int = 0
+    archivo: TextIO = open(nombre_archivo)
+    lineas: list[str] = archivo.readlines()
+
+    for linea in lineas:
+        cant_apariciones_en_linea: int = linea.count(palabra)
+        cant_apariciones += cant_apariciones_en_linea
+
+    archivo.close()
+
+    return cant_apariciones

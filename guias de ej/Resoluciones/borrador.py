@@ -1,13 +1,6 @@
-from guia8 import *
 
-notas: list[tuple[str, int]] = [
-    ('Ivan', 8.50),
-    ('Juan', 7.50),
-    ('Maria',6.25),
-    ('Ivan', 8.25),
-    ('Juan' , 9.00),
-    ('Maria', 6.75)
-]
+texto: str = 'el dia que me olvide el mate en el cuarto de elvio'
 
+# 'el' aparece 4 veces
 
-print(calcular_promedio_por_estudiante(notas))
+print('cantidad de apariciones',texto.count('el'))
