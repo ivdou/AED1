@@ -93,13 +93,25 @@ def long_mayor_a_siete(seq: list[str]) -> bool:
             return True 
     return False
 
-# 1.10 CREO QUE NO SE PUEDE RESOLVER ASI
+# 1.10 
 def invertir_palabra(palabra: str) -> str:
     L: int = len(palabra)
     palabra_invertida: str = ''
     for i in range(L - 1, -1, -1):
         palabra_invertida += palabra[i]
     return palabra_invertida
+
+#ALTERNATIVA (no estoy seguro que se pueda usar range con paso -1)
+#
+# def invertir_palabra(palabra: str) -> str:
+#     lista_letras: list[str] = list(palabra)
+#     palabra_invertida: str = ''
+
+#     while lista_letras != []:
+#         ultima_letra: str = lista_letras.pop()
+#         palabra_invertida += ultima_letra
+
+#     return palabra_invertida
 
 
 def es_palindroma(s:str) -> bool:
@@ -142,6 +154,72 @@ def vocales_distintas(palabra: str) -> bool:
 
 
 # 1.13
+def pos_secuencia_ordenada_mas_larga(s: list[int]) -> int:
+    posicion: int = 0
+    largo: int = 1
+
+    posicion_actual: int = 0
+    largo_actual: int = 1
+
+    for i in range(1, len(s)):
+
+
+        # si el siguiente es mayor o igual, sumo 1 a largo_actual
+        if s[i-1] <= s[i]:
+            largo_actual += 1
+
+        #sino, me fijo si largo_actual > largo y actualizo largo, posicion
+        # y reseteo posicion_actual, largo_actual: 
+        elif largo_actual > largo: 
+            largo = largo_actual
+            posicion = posicion_actual
+            posicion_actual = i 
+            largo_actual = 1
+
+        # sino, también reseteo posicion_actual y largo_actual
+        else:
+            posicion_actual = i
+            largo_actual = 1
+
+    # Chequeo final por si la secuencia mas larga estaba al final
+    if largo_actual > largo:
+        largo = largo_actual
+        posicion = posicion_actual
+
+    return posicion
+
+# 1.14
+def digitos(numero: int) -> list[int]:
+    string_n: str = str(numero)
+    digitos_n: list[int] = []
+
+    # Recorremos directamente el string caracter por caracter
+    for digito_str in string_n:
+        digitos_n.append(int(digito_str))
+
+    return digitos_n
+
+def es_impar(numero: int) -> bool:
+    return (numero % 2) != 0
+
+
+def cantidad_de_digitos_impares_numero(n: int) -> int:
+    digitos_n: list[str] = digitos(n)
+    cant_digitos_impares: int = 0
+    for digito in digitos_n:
+        if es_impar(digito):
+            cant_digitos_impares += 1
+
+    return cant_digitos_impares
+
+
+def cantidad_digitos_impares(s: list[int]) -> int:
+    cant_digitos_impares: int = 0
+    for numero in s:
+        cant_digitos_impares += cantidad_de_digitos_impares_numero(numero)
+
+    return cant_digitos_impares
+    
 
 
 # FLITRADO, MODIFICADO Y PROCESADO DE SECUENCIAS
