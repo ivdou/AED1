@@ -228,12 +228,74 @@ def cantidad_digitos_impares(s: list[int]) -> int:
 # ej 2 
 
 
+# 2.1
+def ceroEnPosicionesPares(s: list[int]) -> None:
+    for i in range (0, len(s), 2):
+        s[i]= 0
+
+# 2.2
+def ceroEnPosicionesPares2(s: list[int]) -> list[int]:
+    res: list[int] = s.copy()
+    ceroEnPosicionesPares(res)
+    return res
+
+# 2.3
+def sin_vocales(s: str) -> str:
+    vocales: list[str] = ['a', 'e', 'i', 'o', 'u']
+
+    # armo una lista con los caracteres de s
+    caracteres_s: list[str] = list(s)
+    s_sin_vocales: str = '' 
+
+    # concateno a s_sin_vocales, aquellas que no sean vocales
+    for caracter in caracteres_s: 
+        if not caracter in vocales:
+            s_sin_vocales += caracter
+
+    return s_sin_vocales
+
+# 2.4
+def reemplaza_vocales (s: str) -> str:
+    vocales: list[str] = ['a', 'e', 'i', 'o', 'u']
+
+    # armo una lista con los caracteres de s
+    caracteres_s: list[str] = list(s)
+    s_reemplazada: str = ''
+
+    # concateno a s_sin_vocales, aquellas que no sean vocales
+    for caracter in caracteres_s: 
+        if not caracter in vocales:
+            s_reemplazada += caracter
+        else: 
+            s_reemplazada += '_'
+
+    return s_reemplazada
+
+# 2.5 (ya implementado como aux en 1.10)
+def da_vuelta_str(s: str) -> str:
+    L: int = len(s)
+    palabra_invertida: str = ''
+    for i in range(L - 1, -1, -1):
+        palabra_invertida += s[i]
+    return palabra_invertida
+
+#2.6
+def eliminar_repetidos(s: str) -> str:
+    caracteres_usados: list[str] = []
+    res: str = ''
+
+    for caracter in s:
+        if not caracter in caracteres_usados:
+            caracteres_usados.append(caracter)
+            res += caracter
+    return res
 
 
 # ej 3
 
 
 def promedio(seq: list[int]) -> float:
+
     N: int = len(seq)
     suma = 0
 
