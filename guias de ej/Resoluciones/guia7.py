@@ -326,6 +326,26 @@ def resultado_materia(notas: list[int]) -> int:
     return res
 
 
+# ej 4 
+
+TipoMovimiento = str
+Monto = int
+Movimiento = tuple[TipoMovimiento, Monto]
+
+def saldo_actual(movimientos: list[Movimiento]) -> int:
+    saldo: int = 0
+    for movimiento in movimientos:
+        tipo_mov: TipoMovimiento = movimiento[0]
+        monto: Monto = movimiento[1]
+
+        if tipo_mov == 'I':
+            saldo += monto
+        else:
+            saldo -= monto
+
+    return saldo
+
+
 # MATRICES
 
 type Fila = list
