@@ -73,6 +73,94 @@ def buscar_nota_maxima(p: Pila[Alumno_Nota]) -> Alumno_Nota:
 
     return alumno_nota_max
 
+
+# ej 6 (notacion polaca invera)
+
+"""
+es una forma de escribir expresiones matemáticas en la que los operadores siguen
+a sus operandos.
+Por ejemplo, la expresión “3 + 4” se escribe como “3 4 +”
+"""
+OperadorBinario = str
+type Token = float| OperadorBinario
+
+def tokenizar(s:str) -> list[str]:
+
+    lista_tokens_str: list[str] = []
+    token_str:str = ''
+
+    # 1 separacion por espacio
+
+    for caracter in s:
+        # si no hay espacio se sigue concatenando caracteres
+        if caracter != ' ':
+            token_str += caracter
+
+        # si hay espacio, se agrega el token actual y se resetea token
+        else:
+            lista_tokens_str.append(token_str)
+            token_str = '' 
+
+    # si el texto no termina con espacio, se captura el ultimo token
+    if token_str != '':
+        lista_tokens_str.append(token_str)
+
+    # 2 conversion de numeros a float
+
+    operadores_binarios: list[OperadorBinario] = ['+', '-', '*', '/']
+    lista_tokens: list[Token] = []
+
+    for token_str in lista_tokens_str:
+
+        # si el token es un operador, queda igual
+        if token_str in operadores_binarios:
+            lista_tokens.append(token_str)
+
+        # sino, es un operando, y se transforma a float
+        else: 
+            lista_tokens.append(float(token_str)) 
+
+    return lista_tokens
+
+def operacion(operando1: float, operando2: float, operador: OperadorBinario) -> float:
+    res: float = 0.0
+
+    if operador == '+':
+        res = operando1 + operando2
+    elif operador == '-':
+        res = operando1 - operando2 
+    elif operador == '*':
+        res = operando1 * operando2
+    else: # operador == '/'
+        res = operando1 / operando2
+
+    return res
+
+def evaluar_expresiones(s:str) -> float:
+    tokens: list[Token] = tokenizar(s)
+    operadores_binarios: list[OperadorBinario] = ['+', '-', '*', '/']
+    pila_operandos: Pila[float] = Pila()
+
+    for token in tokens:
+
+        # si el token es operando (no es operador), se agrega a pila_operandos
+        if not token in operadores_binarios:
+            pila_operandos.put(token)
+
+        # si es un operador, saco dos elementos de la pila, realizo la operacion
+        # y meto en la pila_operandos el resultado.
+        # Se extrae primero operando2 : el orden importa en resta 
+        else: 
+            operando_2: float = pila_operandos.get()
+            operando_1: float = pila_operandos.get()
+            res_operacion: float = operacion(operando_1, operando_2, token) 
+            pila_operandos.put(res_operacion)
+
+    # el resultado es finalmente, el único elemento que queda en la pila
+    res: float = pila_operandos.get()
+    return res
+
+
 # ej 7
 
 def intercalar_pilas(p1: Pila, p2: Pila) -> Pila:
