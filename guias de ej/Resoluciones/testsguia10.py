@@ -63,5 +63,54 @@ class test_stock_productos(unittest.TestCase):
             dict_esperado
         )
 
+class test_un_responsable_por_turno(unittest.TestCase):
+
+    def test_todos_con_un_responsable(self):
+
+        grilla_horaria: Grilla = [
+            [ 'Sergio', 'Andrea', 'Julian'],
+            [ 'Sergio', 'Andrea', 'Julian'],
+            [ 'Sergio', 'Andrea', 'Julian'],
+            [ 'Sergio', 'Andrea', 'Julian'],
+            [ 'Debora', 'Debora', 'Debora'],
+            [ 'Debora', 'Debora', 'Debora'],
+            [ 'Debora', 'Debora', 'Debora'],
+            [ 'Debora', 'Debora', 'Debora']]
+
+        res_esperado: list[tuple[bool, bool]] = [
+            (True, True),
+            (True, True), 
+            (True, True)
+        ]
+
+
+        self.assertEqual(
+            un_responsable_por_turno(grilla_horaria),
+            res_esperado
+        )
+
+    def test_un_turno_con_dos_responsables(self):
+        grilla_horaria: Grilla = [
+            [ 'Sergio', 'Andrea', 'Julian'],
+            [ 'Sergio', 'Andrea', 'Julian'],
+            [ 'Sergio', 'Andrea', 'Julian'],
+            [ 'Sergio', 'Andrea', 'Julian'],
+            [ 'Debora', 'Debora', 'Debora'],
+            [ 'Debora', 'Debora', 'Debora'],
+            [ 'Debora', 'Ivan', 'Debora'],
+            [ 'Debora', 'Ivan', 'Debora']]
+
+        res_esperado: list[tuple[bool, bool]] = [
+            (True, True),
+            (True, False), 
+            (True, True)
+        ]
+
+
+        self.assertEqual(
+            un_responsable_por_turno(grilla_horaria),
+            res_esperado
+        )
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
