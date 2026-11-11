@@ -102,3 +102,66 @@ def un_responsable_por_turno (grilla_horaria: Grilla) -> list[tuple[bool, bool]]
         res.append(res_dia)
 
     return res
+
+
+# ej 10 Cola en el banco
+from queue import Queue as Cola
+Nombre = str
+TipoAfiliado = str
+Cliente = tuple[Nombre, TipoAfiliado]
+from typing import TypeVar
+
+T = TypeVar('T')
+
+def copiar_cola[T](cola: Cola[T]) -> Cola[T]: 
+
+    # Creo una lista auxiliar y una nueva copia
+    lista_aux: list[T] = []
+    cola_copia: Cola[T] = Cola()
+
+    # Almaceno en orden, los elementos de cola en lista_aux
+    while not cola.empty():
+        elem: T = cola.get()
+        lista_aux.append(elem)
+
+    # Inserto en orden, los elementos de lista_aux en cola y cola_copia
+    for elem in lista_aux: 
+        cola.put(elem)
+        cola_copia.put(elem)
+
+    return cola_copia
+
+def reordenar_priorizando_vips(filaClientes: Cola[Cliente]) -> Cola[Nombre]:
+
+    # Creo una cola copia, y una cola para vips y otra para comunes
+    fila_copia: Cola[Cliente] = copiar_cola(filaClientes)
+    cola_vips: Cola[Nombre] = Cola()
+    cola_comunes: Cola[Nombre] = Cola()
+
+    # lleno las colas de vips y comunes
+    while not fila_copia.empty():
+        cliente: Cliente = fila_copia.get()
+        tipo_afiliado: TipoAfiliado = cliente[1]
+        nombre: Nombre = cliente[0]
+
+        if tipo_afiliado == 'vip':
+            cola_vips.put(nombre)
+        else:
+            cola_comunes.put(nombre)
+
+    # Creo una cola_ordenada, donde lleno en el orden requerido los clientes
+    cola_ordenada: Cola[Nombre] = Cola()
+
+    # primero los vips
+    while not cola_vips.empty():
+        cliente_vip: Nombre = cola_vips.get()
+        cola_ordenada.put(cliente_vip)
+
+    # luego los comunes
+    while not cola_comunes.empty():
+        cliente_comun: Nombre = cola_comunes.get()
+        cola_ordenada.put(cliente_comun)       
+
+    
+    return cola_ordenada
+
